@@ -1,0 +1,19 @@
+version: '3.8' # Docker Compose sürümü
+
+services:
+  # Servisimizin adı (istediğini verebilirsin, örn: web, app)
+  php-apache:
+    # Build context: Dockerfile'ın bulunduğu dizin (şu anki dizin '.')
+    build: .
+    # Container'ın adı (isteğe bağlı)
+    container_name: bilet_satin_alma_web
+    # Port yönlendirme: Bilgisayarının 8000 portunu container'ın 80 portuna bağla
+    ports:
+      - "8000:80"
+    # Volume (Birim) bağlama:
+    # Projenin ana klasörünü ('.') container içindeki /var/www/html klasörüne bağla.
+    # Bu sayede yerel makinede yaptığın kod değişiklikleri anında container'a yansır.
+    volumes:
+      - .:/var/www/html
+    # Container yeniden başlatıldığında her zaman çalışsın
+    restart: unless-stopped
